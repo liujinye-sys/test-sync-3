@@ -5,7 +5,8 @@ name: CT
 # Controls when the workflow will run
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    - types: submited
+    #types: [opened, reopened, synchronize]
 
   # reusable
   workflow_call:
