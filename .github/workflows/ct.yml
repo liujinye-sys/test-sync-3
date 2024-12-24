@@ -132,7 +132,7 @@ jobs:
         mkdir output
         cp nuttx/nuttx ./*.log ./autotest.json output
         failed=$(cat autotest.json | jq '.report.summary.failed')
-        if [ "$failed" != "null" ] || [ "$failed" != "0" ];
+        if [ "$failed" != "null" ] || [ "$failed" != "0" ]; then
           echo "autotest failed: $failed"
           result=1
         else
