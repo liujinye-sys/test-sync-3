@@ -126,12 +126,23 @@ jobs:
           /bin/bash -c "cd tests/scripts/script && pytest -m 'common or goldfish_armeabi_v7a_ap' ./ -B goldfish-armeabi-v7a-ap -L /workspace -P /workspace -F /tmp -R qemu -v --disable-warnings --count=1 --json=/workspace/autotest.json"                                                                                                                                                                                                                     
 
     - name: Check autotest result
+      id: autotest_result
       run: |
         cd ${{ github.workspace }}
+        mkdir output
+        cp nuttx/nuttx ./*.log ./autotest.json output
         failed=$(cat autotest.json | jq '.report.summary.failed')
         if [ "$failed" != "null" ] || [ "$failed" != "0" ];
           echo "autotest failed: $failed"
-          exit 1
+          result=1
         else
           echo "autotest passed"
+          result=0
         fi
+        echo "::set-output name=AUTOTEST_RESULT::${result}"
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: citest-artifacts-${{ steps.autotest_result.outputs.AUTOTEST_RESULT }}-${{ github.event.pull_request.number }}
+        path: output/
