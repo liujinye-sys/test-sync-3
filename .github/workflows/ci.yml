@@ -128,7 +128,7 @@ jobs:
         echo 'export PATH=~/bin:$PATH' >> $HOME/.bashrc
         curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
         chmod a+x ~/bin/repo
-        repo forall -v -c git clean -dfx; git reset --hard HEAD
+        ~/bin/repo forall -v -c git clean -dfx; git reset --hard HEAD
 
     - name: Run test build inside Docker container
       run: |
