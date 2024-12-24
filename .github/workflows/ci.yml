@@ -125,7 +125,6 @@ jobs:
 
     - name: Clean
       run: |
-        mkdir ~/bin
         echo 'export PATH=~/bin:$PATH' >> $HOME/.bashrc
         curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
         chmod a+x ~/bin/repo
