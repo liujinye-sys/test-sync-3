@@ -129,6 +129,7 @@ jobs:
         curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
         chmod a+x ~/bin/repo
         sudo ~/bin/repo forall -v -c git clean -dfx; git reset --hard HEAD
+      continue-on-error: true
 
     - name: Run test build inside Docker container
       run: |
