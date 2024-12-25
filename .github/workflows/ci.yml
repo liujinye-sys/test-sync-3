@@ -168,3 +168,11 @@ jobs:
       with:
         name: goldfish-armeabi-v7a-ap-citest_${{ env.REPO_NAME }}-${{ github.event.pull_request.number }}
         path: output/
+
+    - name: Exit with autotest exit code
+      run: |
+        if [ ${{ steps.autotest_result.outputs.AUTOTEST_RESULT }} == "success" ]; then
+          exit 0
+        else
+          exit 1
+        fi
