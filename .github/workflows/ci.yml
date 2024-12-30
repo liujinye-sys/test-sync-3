@@ -28,19 +28,26 @@ jobs:
         git fetch origin pull/${{ github.event.pull_request.number }}/head:pr-branch
         echo "git cherry-pick -x pr-branch"
         cp_pr_result=$(git cherry-pick -x pr-branch 2>&1)
+        cp_pr_code=$?
         echo $cp_pr_result
         safe_cp_pr_result=$(echo "$cp_pr_result" | tr -d '\n' | tr -d '\r' | sed 's/[]\$`"\\]//g') # 格式化结果
         echo "CP_PR_RESULT=$safe_cp_pr_result" >> $GITHUB_ENV
+        echo "CP_PR_CODE=$cp_pr_code" >> $GITHUB_ENV
       continue-on-error: true
 
     - name: check cherry pick pr result
       run: |
-        echo "${{ env.CP_PR_RESULT }}" | grep 'is a merge'
-        if [ $? -eq 0 ]; then
-          echo "There's merge commit in your PR. Please use rebase insteadof merge."
-          exit 1
-        else
+        if [ ${{ env.CP_PR_RESULT }} == 0 ]; then
+          echo "cherry pick PR success and continue."
           exit 0
+        else
+          echo "${{ env.CP_PR_RESULT }}" | grep "is a merge"
+          if [ $? -eq 0 ]; then
+            echo "There's merge commit in your PR. Please use rebase insteadof merge."
+            exit 1
+          else
+            exit 0
+          fi
         fi
         
     - name: Get Repo Name
