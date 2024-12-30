@@ -29,7 +29,8 @@ jobs:
         echo "git cherry-pick -x pr-branch"
         cp_pr_result=$(git cherry-pick -x pr-branch 2>&1)
         echo $cp_pr_result
-        echo "CP_PR_RESULT=$cp_pr_result" >> $GITHUB_ENV
+        safe_cp_pr_result=$(echo "$cp_pr_result" | tr -d '\n' | tr -d '\r' | sed 's/[]\$`"\\]//g') # 格式化结果
+        echo "CP_PR_RESULT=$safe_cp_pr_result" >> $GITHUB_ENV
       continue-on-error: true
 
     - name: check cherry pick pr result
