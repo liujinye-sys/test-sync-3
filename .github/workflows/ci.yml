@@ -35,7 +35,7 @@ jobs:
 
     - name: check cherry pick pr result
       run: |
-        echo ${{ env.CP_PR_RESULT }} | grep 'is a merge'
+        echo "${{ env.CP_PR_RESULT }}" | grep 'is a merge'
         if [ $? -eq 0 ]; then
           echo "There's merge commit in your PR. Please use rebase insteadof merge."
           exit 1
