@@ -28,7 +28,8 @@ jobs:
         git config --global user.name "openvela-robot"
         git fetch origin pull/${{ github.event.pull_request.number }}/head:pr-branch
         echo "git cherry-pick -x pr-branch"
-        cp_pr_result=$(git cherry-pick -x pr-branch 2>&1 || echo "Command failed with error")
+        set +e
+        cp_pr_result=$(git cherry-pick -x pr-branch 2>&1)
         cp_pr_code=$?
         echo $cp_pr_result
         safe_cp_pr_result=$(echo "$cp_pr_result" | tr -d '\n' | tr -d '\r' | sed 's/[]\$`"\\]//g') # 格式化结果
