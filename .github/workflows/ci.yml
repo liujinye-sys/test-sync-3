@@ -37,7 +37,7 @@ jobs:
 
     - name: check cherry pick pr result
       run: |
-        if [ ${{ env.CP_PR_RESULT }} == 0 ]; then
+        if [ ${{ env.CP_PR_CODE }} == 0 ]; then
           echo "cherry pick PR success and continue."
           exit 0
         else
