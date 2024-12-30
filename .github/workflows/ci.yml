@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: test cherry-pick pr
-      id: cherry-pick
       run: |
         git clone https://github.com/open-vela/test.git
         cd test
@@ -39,7 +38,6 @@ jobs:
 
     - name: check cherry pick pr result
       run: |
-        echo "${{ steps.cherry-pick.outcome }}"
         if [ ${{ env.CP_PR_CODE }} == 0 ]; then
           echo "cherry pick PR success and continue."
           exit 0
