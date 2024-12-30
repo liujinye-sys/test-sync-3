@@ -26,6 +26,7 @@ jobs:
         git config --global user.email "openvela-robot@xiaomi.com"
         git config --global user.name "openvela-robot"
         git fetch origin pull/${{ github.event.pull_request.number }}/head:pr-branch
+        echo "git cherry-pick -x pr-branch"
         git cherry-pick -x pr-branch
         
     - name: Get Repo Name
