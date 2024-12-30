@@ -39,6 +39,9 @@ jobs:
         if [ $? -eq 0 ]; then
           echo "There's merge commit in your PR. Please use rebase insteadof merge."
           exit 1
+        else
+          exit 0
+        fi
         
     - name: Get Repo Name
       run: |
