@@ -18,6 +18,13 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
+    - name: test cherry-pick pr
+      run: |
+        git clone git@github.com:open-vela/test.git
+        cd test
+        git fetch openvela pull/${{ github.event.pull_request.number }}/head:pr-branch
+        git cherry-pick -x pr_branch
+        
     - name: Get Repo Name
       run: |
           echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
