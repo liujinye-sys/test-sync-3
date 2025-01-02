@@ -9,18 +9,6 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  #addreviewers:
-  #  uses: liujinye-sys/public-actions/.github/workflows/add_reviewers.yml@trunk
-  #  secrets: inherit
-  onOpenedPullRequest:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Reviewers
-        run: |
-          echo "REVIEWERS=$(jq -c -r  '.${{ github.repository }}[]' codereviewers.json|tr '\n' ','|tr -d ,$)" >> $GITHUB_ENV
-
-      - name: Add Pull Request Reviewers
-        uses: sakhnovict/add-reviewers-action@1.0.0
-        with:
-          reviewers: ${{ env.REVIEWERS }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+  addreviewers:
+    uses: liujinye-sys/public-actions/.github/workflows/add-reviewers.yml@trunk
+    secrets: inherit
