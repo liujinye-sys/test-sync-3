@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Add reviewers 
+name: Add Reviewers Job 
 
 # Controls when the workflow will run
 on:
@@ -19,7 +19,7 @@ jobs:
         run: |
           echo "REVIEWERS=`jq -c -r  '.test[]' codereviewers.json|tr '\n' ','|tr -d ,$`" >> $GITHUB_ENV
 
-      - name Add Pull Request Reviewers
+      - name: Add Pull Request Reviewers
         uses: sakhnovict/add-reviewers-action@1.0.0
         with:
           reviewers: ${{ env.REVIEWERS }}
