@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Get Reviewers
         run: |
-          echo "REVIEWERS=`jq -c -r  '.test[]' codereviewers.json|tr '\n' ','|tr -d ,$`" >> $GITHUB_ENV
+          echo "REVIEWERS=$(jq -c -r  '.${{ github.repository }}[]' codereviewers.json|tr '\n' ','|tr -d ,$)" >> $GITHUB_ENV
 
       - name: Add Pull Request Reviewers
         uses: sakhnovict/add-reviewers-action@1.0.0
